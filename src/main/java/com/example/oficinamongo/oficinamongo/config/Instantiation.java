@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.example.oficinamongo.oficinamongo.domain.Post;
 import com.example.oficinamongo.oficinamongo.domain.User;
+import com.example.oficinamongo.oficinamongo.dto.AuthorDTO;
 import com.example.oficinamongo.oficinamongo.repositories.PostRepository;
 import com.example.oficinamongo.oficinamongo.repositories.UserRepository;
 
@@ -33,10 +34,11 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post("Vou viajar para Austrália. Abraços!", sdf.parse("21/03/2024"), null, "Partiu viagem", maria);
-        Post post2 = new Post("Acordei feliz hoje!", sdf.parse("12/05/2024"), null, "Bom dia", maria);
+        userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post post1 = new Post("Vou viajar para Austrália. Abraços!", sdf.parse("21/03/2024"), null, "Partiu viagem", new AuthorDTO(maria));
+        Post post2 = new Post("Acordei feliz hoje!", sdf.parse("12/05/2024"), null, "Bom dia", new AuthorDTO(maria));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
-        userRepository.saveAll(Arrays.asList(maria, alex, bob));
     }
 }
